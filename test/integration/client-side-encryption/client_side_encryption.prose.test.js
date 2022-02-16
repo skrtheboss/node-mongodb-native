@@ -98,12 +98,12 @@ describe('Client Side Encryption Prose Tests', metadata, function () {
       };
       clientNoTlsOptions = {
         keyVaultNamespace,
-        kmsProviders: getKmsProviders(null, null, '127.0.0.1:9002', '127.0.0.1:9002'),
+        kmsProviders: getKmsProviders(null, null, '127.0.0.1:8002', '127.0.0.1:8002'),
         tlsOptions: tlsCaOptions
       };
       clientWithTlsOptions = {
         keyVaultNamespace,
-        kmsProviders: getKmsProviders(null, null, '127.0.0.1:9002', '127.0.0.1:9002'),
+        kmsProviders: getKmsProviders(null, null, '127.0.0.1:8002', '127.0.0.1:8002'),
         tlsOptions: {
           aws: {
             tlsCAFile: process.env.KMIP_TLS_CA_FILE,
@@ -125,12 +125,12 @@ describe('Client Side Encryption Prose Tests', metadata, function () {
       };
       clientWithTlsExpiredOptions = {
         keyVaultNamespace,
-        kmsProviders: getKmsProviders(null, '127.0.0.1:9000', '127.0.0.1:9000', '127.0.0.1:9000'),
+        kmsProviders: getKmsProviders(null, '127.0.0.1:8000', '127.0.0.1:8000', '127.0.0.1:8000'),
         tlsOptions: tlsCaOptions
       };
       clientWithInvalidHostnameOptions = {
         keyVaultNamespace,
-        kmsProviders: getKmsProviders(null, '127.0.0.1:9001', '127.0.0.1:9001', '127.0.0.1:9001'),
+        kmsProviders: getKmsProviders(null, '127.0.0.1:8001', '127.0.0.1:8001', '127.0.0.1:8001'),
         tlsOptions: tlsCaOptions
       };
       clientNoTls = this.configuration.newClient({}, { autoEncryption: clientNoTlsOptions });
@@ -167,10 +167,10 @@ describe('Client Side Encryption Prose Tests', metadata, function () {
       const masterKey = {
         region: 'us-east-1',
         key: 'arn:aws:kms:us-east-1:579766882180:key/89fcc2c4-08b0-4bd9-9f25-e30687b580d0',
-        endpoint: '127.0.0.1:9002'
+        endpoint: '127.0.0.1:8002'
       };
-      const masterKeyExpired = { ...masterKey, endpoint: '127.0.0.1:9000' };
-      const masterKeyInvalidHostname = { ...masterKey, endpoint: '127.0.0.1:9001' };
+      const masterKeyExpired = { ...masterKey, endpoint: '127.0.0.1:8000' };
+      const masterKeyInvalidHostname = { ...masterKey, endpoint: '127.0.0.1:8001' };
 
       it('fails with various invalid tls options', metadata, async function () {
         try {

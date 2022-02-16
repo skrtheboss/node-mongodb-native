@@ -2,7 +2,6 @@
 import type { Document } from '../../bson';
 import { MongoAPIError, MongoMissingCredentialsError } from '../../error';
 import { emitWarningOnce } from '../../utils';
-import { MONGODB_WIRE_VERSION } from '../wire_protocol/constants';
 import { AUTH_MECHS_AUTH_SRC_EXTERNAL, AuthMechanism } from './providers';
 
 // https://github.com/mongodb/specifications/blob/master/source/auth/auth.rst
@@ -17,7 +16,7 @@ function getDefaultAuthMechanism(hello?: Document): AuthMechanism {
     }
 
     // Fallback to legacy selection method. If wire version >= 3, use scram-sha-1
-    if (hello.maxWireVersion >= MONGODB_WIRE_VERSION.RELEASE_2_7_7) {
+    if (hello.maxWireVersion >= 3) {
       return AuthMechanism.MONGODB_SCRAM_SHA1;
     }
   }
